@@ -20,7 +20,7 @@ const AllProducts = async () => {
         <h2 className="text-lg font-bold text-[#202B23] sm:text-xl">
           সব পণ্য
         </h2>
-         <p className="text-sm font-light text-grey-300">মোট {data.length.toLocaleString("bn-BD")}টি পণ্য দেখানো হচ্ছে</p>
+         <p className="text-sm font-light text-[#4B554D]">মোট {data.length.toLocaleString("bn-BD")}টি পণ্য দেখানো হচ্ছে</p>
       </div>
      
 
