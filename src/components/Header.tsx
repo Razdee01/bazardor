@@ -3,10 +3,10 @@ import Link from "next/link";
 
 const Header = async () => {
   const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/categories",
+    "https://api.abcz.workers.dev/api/bazardor/categories"
   );
+
   const data = await res.json();
-  console.log(data);
 
   const today = new Date();
 
@@ -16,67 +16,71 @@ const Header = async () => {
     day: "numeric",
     year: "numeric",
   });
-;
 
   return (
-    <header className="w-full border-b border-gray-200 bg-white">
+    <header className="w-full ">
       {/* Top Header */}
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
         {/* Logo and Website Name */}
-        <div className="flex items-center gap-3 ">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <Image
             src="/logo-icon.png"
             alt="Website logo"
             width={55}
             height={55}
-            className="h-12 w-12 p-3 bg-[#05893E] rounded-2xl"
+            className="h-10 w-10 shrink-0 rounded-xl bg-[#05893E] p-2 sm:h-12 sm:w-12 sm:rounded-2xl sm:p-3"
           />
 
-          <div>
-            <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">
+          <div className="min-w-0">
+            <h1 className="text-lg font-bold text-gray-900 sm:text-2xl">
               Bazar Dor
             </h1>
 
-            <p className="text-xs text-gray-500 sm:text-sm">{formattedDate}</p>
+            <p className="text-[10px] text-gray-500 sm:text-sm">
+              {formattedDate}
+            </p>
           </div>
         </div>
 
         {/* Login and Logout */}
-        <div className="flex items-center gap-2">
-          <button className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 sm:px-4">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <button className="rounded-lg border border-gray-300 px-2.5 py-2 text-xs font-medium text-gray-700 transition hover:bg-gray-100 sm:px-4 sm:text-sm">
             Log In
           </button>
 
-          <button className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 sm:px-4">
+          <button className="rounded-lg bg-[#05893E] px-2.5 py-2 text-xs font-medium text-white transition hover:bg-green-700 sm:px-4 sm:text-sm">
             Log Out
           </button>
         </div>
       </div>
 
       {/* Navigation Links */}
-     {/* Navigation Links */}
-<nav className="mx-auto max-w-7xl px-4 pb-4">
-  <div className="grid grid-cols-4 gap-3 sm:grid-cols-4 md:grid-cols-8">
-    {data.map((item: {
-      id: string;
-      slug: string;
-      nameBn: string;
-      icon: string;
-    }) => (
-      <Link
-        key={item.id}
-        href={`/category/${item.id}`}
-        className="flex  items-center gap-2 rounded-lg p-3 text-center transition hover:bg-gray-100"
-      >
-        <p className="text-xl">{item.icon}</p>
+      <nav className=" rounded-lg border border-gray-100">
+        <div className="grid  grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-8 mx-auto max-w-7xl  px-3 pb-3 sm:px-6 sm:pb-4 lg:px-8">
+          {data.map(
+            (item: {
+              id: string;
+              slug: string;
+              nameBn: string;
+              icon: string;
+            }) => (
+              <Link
+                key={item.id}
+                href={`/category/${item.id}`}
+                className="flex min-w-0 items-center justify-center gap-2  p-2 transition hover:bg-green-50 sm:justify-start sm:p-3"
+              >
+                <span className="shrink-0 text-lg sm:text-xl">
+                  {item.icon}
+                </span>
 
-        <p className="text-xs font-medium text-gray-700 sm:text-sm">
-          {item.nameBn}
-        </p>
-      </Link>
-    ))}
-  </div>
-</nav>
+                <span className="truncate text-xs font-medium text-gray-700 sm:text-sm">
+                  {item.nameBn}
+                </span>
+              </Link>
+            )
+          )}
+        </div>
+      </nav>
     </header>
   );
 };

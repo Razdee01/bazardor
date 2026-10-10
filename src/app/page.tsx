@@ -1,7 +1,10 @@
+import Marque from "@/components/Marque";
 
 
 export default function Home() {
   return (
-    <div></div>
+    <div>
+      <Marque></Marque>
+    </div>
   );
 }
