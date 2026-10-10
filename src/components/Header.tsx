@@ -2,15 +2,21 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Header = async () => {
+  interface Icategory {
+    id: string;
+    slug: string;
+    nameBn: string;
+    icon: string;
+  }
   const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/categories"
+    "https://openapi.programming-hero.com/api/bazardor/categories",
   );
 
   const data = await res.json();
 
   const today = new Date();
 
-  const formattedDate = today.toLocaleDateString("en-US", {
+  const formattedDate = today.toLocaleDateString("bn-BD", {
     weekday: "long",
     month: "long",
     day: "numeric",
@@ -57,28 +63,19 @@ const Header = async () => {
       {/* Navigation Links */}
       <nav className=" rounded-lg border border-gray-100">
         <div className="grid  grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-8 mx-auto max-w-7xl  px-3 pb-3 sm:px-6 sm:pb-4 lg:px-8">
-          {data.map(
-            (item: {
-              id: string;
-              slug: string;
-              nameBn: string;
-              icon: string;
-            }) => (
-              <Link
-                key={item.id}
-                href={`/category/${item.id}`}
-                className="flex min-w-0 items-center justify-center gap-2  p-2 transition hover:bg-green-50 sm:justify-start sm:p-3"
-              >
-                <span className="shrink-0 text-lg sm:text-xl">
-                  {item.icon}
-                </span>
+          {data.map((item: Icategory) => (
+            <Link
+              key={item.id}
+              href={`/category/${item.id}`}
+              className="flex min-w-0 items-center justify-center gap-2  p-2 transition hover:bg-green-50 sm:justify-start sm:p-3"
+            >
+              <span className="shrink-0 text-lg sm:text-xl">{item.icon}</span>
 
-                <span className="truncate text-xs font-medium text-gray-700 sm:text-sm">
-                  {item.nameBn}
-                </span>
-              </Link>
-            )
-          )}
+              <span className="truncate text-xs font-medium text-gray-700 sm:text-sm">
+                {item.nameBn}
+              </span>
+            </Link>
+          ))}
         </div>
       </nav>
     </header>
