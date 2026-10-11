@@ -1,13 +1,23 @@
 import { Product } from "@/type/Type";
-import { FaArrowUp } from "react-icons/fa";
+import Link from "next/link";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const direction = product.change?.dir;
+
+  const badgeStyle =
+    direction === "up"
+      ? "bg-red-50 text-red-600"
+      : direction === "down"
+        ? "bg-green-50 text-green-600"
+        : "bg-gray-100 text-gray-500";
+
   return (
-    <div className="rounded-2xl border border-[#DFE8E0] bg-[#FAFCFA] p-3 sm:p-4">
+    <Link href={`/products/${product.id}`} className="rounded-2xl border border-[#DFE8E0] bg-[#FAFCFA] p-3 sm:p-4">
       {/* Product Information */}
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F0F5F0] text-2xl">
@@ -28,24 +38,28 @@ const ProductCard = ({ product }: ProductCardProps) => {
       {/* Price Information */}
       <div className="mt-3 flex items-end justify-between gap-2">
         <div>
-          <p className="text-xs text-[#303A32]">
-            আজকের দাম
-          </p>
+          <p className="text-xs text-[#303A32]">আজকের দাম</p>
 
           <p className="mt-1 text-lg font-bold text-[#202B23]">
             {product.today.toLocaleString("bn-BD")} টাকা
           </p>
         </div>
 
-        <div className="mb-0.5 flex shrink-0 items-center gap-1 rounded-full bg-[#F0F5F0] px-2 py-1 text-[10px] font-semibold text-red-600">
-          <FaArrowUp className="text-[9px]" />
+        <div
+          className={`mb-0.5 flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-[10px] font-semibold ${badgeStyle}`}
+        >
+          {direction === "up" ? (
+            <FaArrowUp className="text-[9px]" />
+          ) : direction === "down" ? (
+            <FaArrowDown className="text-[9px]" />
+          ) : null}
 
           <span>
-            {product.change?.pct.toLocaleString("bn-BD")}%
+            {Math.abs(product.change?.pct).toLocaleString("bn-BD") ?? 0}%
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

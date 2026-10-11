@@ -26,7 +26,10 @@ const Header = async () => {
   return (
     <header className="w-full ">
       {/* Top Header */}
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
+      <Link
+        href={"/"}
+        className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 sm:py-4 lg:px-8"
+      >
         {/* Logo and Website Name */}
         <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <Image
@@ -58,7 +61,7 @@ const Header = async () => {
             Log Out
           </button>
         </div>
-      </div>
+      </Link>
 
       {/* Navigation Links */}
       <nav className=" rounded-lg border border-gray-100">
@@ -66,7 +69,7 @@ const Header = async () => {
           {data.map((item: Icategory) => (
             <Link
               key={item.id}
-              href={`/category/${item.id}`}
+              href={`/categories/${item.id}`}
               className="flex min-w-0 items-center justify-center gap-2  p-2 transition hover:bg-green-50 sm:justify-start sm:p-3"
             >
               <span className="shrink-0 text-lg sm:text-xl">{item.icon}</span>
