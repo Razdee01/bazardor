@@ -24,14 +24,11 @@ const Header = async () => {
   });
 
   return (
-    <header className="w-full ">
+    <header className="w-full">
       {/* Top Header */}
-      <Link
-        href={"/"}
-        className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 sm:py-4 lg:px-8"
-      >
-        {/* Logo and Website Name */}
-        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
+        {/* Logo and Website Name wrapped safely in a single Link */}
+        <Link href={"/"} className="flex min-w-0 items-center gap-2 sm:gap-3">
           <Image
             src="/logo-icon.png"
             alt="Website logo"
@@ -49,28 +46,34 @@ const Header = async () => {
               {formattedDate}
             </p>
           </div>
-        </div>
+        </Link>
 
-        {/* Login and Logout */}
+        {/* Login and Logout Buttons (Independent, no nested links) */}
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <button className="rounded-lg border border-gray-300 px-2.5 py-2 text-xs font-medium text-gray-700 transition hover:bg-gray-100 sm:px-4 sm:text-sm">
-            Log In
-          </button>
+          <Link
+            href={"/sign-in"}
+            className="rounded-lg border border-gray-300 px-2.5 py-2 text-xs font-medium text-gray-700 transition hover:bg-gray-100 sm:px-4 sm:text-sm"
+          >
+            সাইন ইন
+          </Link>
 
-          <button className="rounded-lg bg-[#05893E] px-2.5 py-2 text-xs font-medium text-white transition hover:bg-green-700 sm:px-4 sm:text-sm">
-            Log Out
-          </button>
+          <Link
+            href={"/sign-up"}
+            className="rounded-lg bg-[#05893E] px-2.5 py-2 text-xs font-medium text-white transition hover:bg-green-700 sm:px-4 sm:text-sm"
+          >
+            সাইন আপ
+          </Link>
         </div>
-      </Link>
+      </div>
 
       {/* Navigation Links */}
-      <nav className=" rounded-lg border border-gray-100">
-        <div className="grid  grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-8 mx-auto max-w-7xl  px-3 pb-3 sm:px-6 sm:pb-4 lg:px-8">
+      <nav className="rounded-lg border border-gray-100">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-2 px-3 pb-3 sm:grid-cols-4 sm:gap-3 sm:px-6 sm:pb-4 lg:grid-cols-8 lg:px-8">
           {data.map((item: Icategory) => (
             <Link
               key={item.id}
               href={`/categories/${item.id}`}
-              className="flex min-w-0 items-center justify-center gap-2  p-2 transition hover:bg-green-50 sm:justify-start sm:p-3"
+              className="flex min-w-0 items-center justify-center gap-2 p-2 transition hover:bg-green-50 sm:justify-start sm:p-3"
             >
               <span className="shrink-0 text-lg sm:text-xl">{item.icon}</span>
 
