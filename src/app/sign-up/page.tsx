@@ -2,8 +2,17 @@
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+    const handleGoogleSignIn=async()=>{
+       const data = await authClient.signIn.social({
+         provider: "google",
+       });
+       if(data){
+          redirect("/");
+       }
+    }
   const handleSignUp=async(e:React.SubmitEvent<HTMLElement>)=>{
     e.preventDefault()
     const formData=new FormData(e.target)
@@ -18,14 +27,15 @@ const SignUp = () => {
       ...user
     
     });
-    if(data){
-      console.log(data);
-      redirect("/")
-      
-    }
-    if (error) {
-      console.log(error);
-    }
+      if (data) {
+        toast(`Welcome! ${data.user.name}`, {
+          icon: "👏",
+        });
+        redirect("/")
+      }
+      if (error) {
+        toast.error("User already exists");
+      }
     
 
   }
@@ -67,6 +77,18 @@ const SignUp = () => {
                 type="email"
                 name="email"
                 placeholder="you@example.com"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-sm placeholder:text-gray-400"
+              />
+            </div>
+            {/* Optional Image URL Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                প্রোফাইল ছবির লিংক (ঐচ্ছিক)
+              </label>
+              <input
+                type="url"
+                name="image"
+                placeholder="https://example.com/profile.jpg"
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-sm placeholder:text-gray-400"
               />
             </div>
@@ -119,6 +141,7 @@ const SignUp = () => {
           {/* Social Logins */}
           <div className="grid grid-cols-2 gap-3">
             <button
+              onClick={handleGoogleSignIn}
               type="button"
               className="flex items-center justify-center gap-2 py-2.5 px-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-xs md:text-sm font-medium text-gray-700"
             >

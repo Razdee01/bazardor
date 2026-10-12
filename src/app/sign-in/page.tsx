@@ -1,8 +1,41 @@
-"use client"
+"use client";
+
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
+  const handleGoogleSignIn=async()=>{
+     const data = await authClient.signIn.social({
+       provider: "google",
+     });
+     if(data){
+        redirect("/");
+     }
+  }
+  const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const user = Object.fromEntries(formData.entries()) as {
+      email: string;
+      password: string;
+    };
 
+    const { data, error } = await authClient.signIn.email({
+      ...user,
+      callbackURL:"/"
+    });
+    if(data){
+     toast(`Welcome! ${data.user.name}`, {
+       icon: "👏",
+     });
+       redirect("/");
+    }
+    if (error) {
+      toast.error("Email or Password is wrong");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F4F6F9] flex flex-col items-center justify-center px-4 py-8">
@@ -19,7 +52,7 @@ const SignIn = () => {
 
         {/* Form Card */}
         <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
-          <form className="space-y-4">
+          <form onSubmit={onSubmit} className="space-y-4">
             {/* Email Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -68,6 +101,7 @@ const SignIn = () => {
           {/* Social Logins */}
           <div className="grid grid-cols-2 gap-3">
             <button
+            onClick={handleGoogleSignIn}
               type="button"
               className="flex items-center justify-center gap-2 py-2.5 px-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-xs md:text-sm font-medium text-gray-700"
             >

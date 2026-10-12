@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import UserInfo from "./UserInfo";
 
 const Header = async () => {
   interface Icategory {
@@ -49,21 +50,7 @@ const Header = async () => {
         </Link>
 
         {/* Login and Logout Buttons (Independent, no nested links) */}
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <Link
-            href={"/sign-in"}
-            className="rounded-lg border border-gray-300 px-2.5 py-2 text-xs font-medium text-gray-700 transition hover:bg-gray-100 sm:px-4 sm:text-sm"
-          >
-            সাইন ইন
-          </Link>
-
-          <Link
-            href={"/sign-up"}
-            className="rounded-lg bg-[#05893E] px-2.5 py-2 text-xs font-medium text-white transition hover:bg-green-700 sm:px-4 sm:text-sm"
-          >
-            সাইন আপ
-          </Link>
-        </div>
+        <UserInfo></UserInfo>
       </div>
 
       {/* Navigation Links */}
