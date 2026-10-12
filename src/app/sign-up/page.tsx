@@ -1,44 +1,49 @@
-"use client"
+"use client";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
-    const handleGoogleSignIn=async()=>{
-       const data = await authClient.signIn.social({
-         provider: "google",
-       });
-       if(data){
-          redirect("/");
-       }
+  const handleGoogleSignIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+    if (data) {
+      redirect("/");
     }
-  const handleSignUp=async(e:React.SubmitEvent<HTMLElement>)=>{
-    e.preventDefault()
-    const formData=new FormData(e.target)
+  };
+  const handleGithubSignIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+    if (data) {
+      redirect("/");
+    }
+  };
+  const handleSignUp = async (e: React.SubmitEvent<HTMLElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
     const user = Object.fromEntries(formData.entries()) as {
-      name: string,
-      email: string,
-      image: string,
-      password: string
+      name: string;
+      email: string;
+      image: string;
+      password: string;
     };
     console.log(user);
     const { data, error } = await authClient.signUp.email({
-      ...user
-    
+      ...user,
     });
-      if (data) {
-        toast(`Welcome! ${data.user.name}`, {
-          icon: "👏",
-        });
-        redirect("/")
-      }
-      if (error) {
-        toast.error("User already exists");
-      }
-    
-
-  }
+    if (data) {
+      toast(`Welcome! ${data.user.name}`, {
+        icon: "👏",
+      });
+      redirect("/");
+    }
+    if (error) {
+      toast.error("User already exists");
+    }
+  };
   return (
     <div className="min-h-screen bg-[#F4F6F9] flex flex-col items-center justify-center px-4 py-8">
       <div className="w-full max-w-lg">
@@ -166,6 +171,7 @@ const SignUp = () => {
               Google দিয়ে চালিয়ে যান
             </button>
             <button
+              onClick={handleGithubSignIn}
               type="button"
               className="flex items-center justify-center gap-2 py-2.5 px-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-xs md:text-sm font-medium text-gray-700"
             >

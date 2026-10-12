@@ -14,6 +14,14 @@ const SignIn = () => {
         redirect("/");
      }
   }
+  const handleGithubSignIn=async()=>{
+     const data = await authClient.signIn.social({
+       provider: "google",
+     });
+     if(data){
+        redirect("/");
+     }
+  }
   const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -101,7 +109,7 @@ const SignIn = () => {
           {/* Social Logins */}
           <div className="grid grid-cols-2 gap-3">
             <button
-            onClick={handleGoogleSignIn}
+              onClick={handleGoogleSignIn}
               type="button"
               className="flex items-center justify-center gap-2 py-2.5 px-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-xs md:text-sm font-medium text-gray-700"
             >
@@ -126,6 +134,7 @@ const SignIn = () => {
               Google দিয়ে চালিয়ে যান
             </button>
             <button
+              onClick={handleGithubSignIn}
               type="button"
               className="flex items-center justify-center gap-2 py-2.5 px-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-xs md:text-sm font-medium text-gray-700"
             >
