@@ -15,7 +15,7 @@ const SignUp = () => {
   };
   const handleGithubSignIn = async () => {
     const data = await authClient.signIn.social({
-      provider: "google",
+      provider: "github",
     });
     if (data) {
       redirect("/");
