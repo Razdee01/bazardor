@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌾 বাজার দর / BazarDor
 
-## Getting Started
+A modern Bangla marketplace and daily price tracking web app that helps users stay updated on current market rates for essential goods, groceries, vegetables, fish, meat, and household products.
 
-First, run the development server:
+BazarDor is designed to make everyday shopping smarter by presenting product prices in a clean, user-friendly interface with category-based browsing and quick daily market insights.
+
+## ✨ Short Description
+
+BazarDor is a responsive marketplace dashboard for tracking the latest product prices in Bangladesh. It gives users a smooth experience to explore products, compare pricing trends, and understand whether a product's price has increased or decreased compared to recent market movement.
+
+## 🛠️ Technologies Used
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- MongoDB
+- Better Auth
+- Lucide Icons
+- React Icons
+
+## ⭐ Key Features
+
+1. Daily Market Price Tracking
+   - Shows the latest prices of essential products and daily commodities in a simple, readable dashboard.
+
+2. Category-Based Product Browsing
+   - Users can explore products by categories such as groceries, vegetables, fish, meat, and other essentials.
+
+3. Price Change Insights
+   - Highlights products whose prices have increased or decreased, helping users quickly identify pricing trends.
+
+4. Product Detail View
+   - Each product card links to detailed information for a cleaner and more informative shopping experience.
+
+5. Responsive and Modern UI
+   - Built with a mobile-friendly design that works smoothly across devices and keeps the user experience intuitive.
+
+## 📌 Project Goal
+
+The main goal of BazarDor is to provide a practical and visually appealing solution for checking market prices quickly and conveniently, helping users make better shopping decisions in everyday life.
+
+## 🚀 Getting Started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Notes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is built as a Next.js application focused on market price discovery and category-driven product navigation, tailored for Bangladeshi users and local commodity tracking.
