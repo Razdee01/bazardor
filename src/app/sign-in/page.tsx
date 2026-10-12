@@ -1,7 +1,9 @@
-import React from "react";
+"use client"
 import Link from "next/link";
 
 const SignIn = () => {
+
+
   return (
     <div className="min-h-screen bg-[#F4F6F9] flex flex-col items-center justify-center px-4 py-8">
       <div className="w-full max-w-lg">
@@ -25,6 +27,7 @@ const SignIn = () => {
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="you@example.com"
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-sm placeholder:text-gray-400"
               />
@@ -37,6 +40,7 @@ const SignIn = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 placeholder="কমপক্ষে ৮ অক্ষর"
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-sm placeholder:text-gray-400"
               />

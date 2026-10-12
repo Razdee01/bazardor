@@ -1,7 +1,34 @@
-import React from "react";
+"use client"
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const SignUp = () => {
+  const handleSignUp=async(e:React.SubmitEvent<HTMLElement>)=>{
+    e.preventDefault()
+    const formData=new FormData(e.target)
+    const user = Object.fromEntries(formData.entries()) as {
+      name: string,
+      email: string,
+      image: string,
+      password: string
+    };
+    console.log(user);
+    const { data, error } = await authClient.signUp.email({
+      ...user
+    
+    });
+    if(data){
+      console.log(data);
+      redirect("/")
+      
+    }
+    if (error) {
+      console.log(error);
+    }
+    
+
+  }
   return (
     <div className="min-h-screen bg-[#F4F6F9] flex flex-col items-center justify-center px-4 py-8">
       <div className="w-full max-w-lg">
@@ -17,7 +44,7 @@ const SignUp = () => {
 
         {/* Form Card */}
         <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
-          <form className="space-y-4">
+          <form onSubmit={handleSignUp} className="space-y-4">
             {/* Name Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -25,6 +52,7 @@ const SignUp = () => {
               </label>
               <input
                 type="text"
+                name="name"
                 placeholder="যেমন: রহিম উদ্দিন"
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-sm placeholder:text-gray-400"
               />
@@ -37,6 +65,7 @@ const SignUp = () => {
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="you@example.com"
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-sm placeholder:text-gray-400"
               />
@@ -49,6 +78,7 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 placeholder="কমপক্ষে ৮ অক্ষর"
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-sm placeholder:text-gray-400"
               />
@@ -61,6 +91,7 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 placeholder="আবার লিখুন"
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-sm placeholder:text-gray-400"
               />
