@@ -40,7 +40,7 @@ const Header = async () => {
 
           <div className="min-w-0">
             <h1 className="text-lg font-bold text-gray-900 sm:text-2xl">
-              Bazar Dor
+              বাজার দর 
             </h1>
 
             <p className="text-[10px] text-gray-500 sm:text-sm">
