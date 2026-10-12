@@ -1,8 +1,15 @@
 import { Product } from "@/type/Type";
+import Link from "next/link";
 
-
-const CategoriesPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+const CategoriesPage = async ({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ sort?: string }>;
+}) => {
   const { id } = await params;
+  const { sort } = await searchParams;
 
   const res = await fetch(
     `https://openapi.programming-hero.com/api/bazardor/products?category=${id}`,
@@ -12,6 +19,14 @@ const CategoriesPage = async ({ params }: { params: Promise<{ id: string }> }) =
 
   const categoryName = products[0]?.categoryNameBn || id;
   const categoryIcon = products[0]?.categoryIcon || "🍚";
+
+  // Sorting logic based on query parameter
+  const sortedProducts = [...products];
+  if (sort === "high-to-low") {
+    sortedProducts.sort((a, b) => b.today - a.today);
+  } else if (sort === "low-to-high") {
+    sortedProducts.sort((a, b) => a.today - b.today);
+  }
 
   return (
     <div className="min-h-screen bg-[#F5F7FA] px-4 py-8 md:px-8">
@@ -29,24 +44,53 @@ const CategoriesPage = async ({ params }: { params: Promise<{ id: string }> }) =
           </div>
         </div>
 
-        {/* Sort bar (only the right side dropdown like Figma) */}
+        {/* Sort bar dropdown options */}
         <div className="mb-5 flex items-center justify-end rounded-xl bg-white px-5 py-3 shadow-sm">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-3 text-sm text-gray-600">
             <span>সাজান</span>
-            <span className="rounded-md border border-gray-200 px-3 py-1">
-              ডিফল্ট ▾
-            </span>
+            <div className="relative group">
+              <button className="flex items-center gap-1 rounded-md border border-gray-200 px-3 py-1.5 bg-white text-gray-700 hover:bg-gray-50 transition">
+                {sort === "high-to-low"
+                  ? "দাম: বেশি থেকে কম"
+                  : sort === "low-to-high"
+                    ? "দাম: কম থেকে বেশি"
+                    : "ডিফল্ট"}{" "}
+                ▾
+              </button>
+
+              {/* Dropdown Menu */}
+              <div className="absolute right-0 mt-1 hidden group-hover:flex flex-col w-48 rounded-xl bg-white shadow-lg border border-gray-100 py-1 z-20 group-focus-within:flex">
+                <Link
+                  href={`/categories/${id}`}
+                  className={`px-4 py-2 text-xs hover:bg-gray-50 text-gray-700 ${!sort ? "font-bold text-emerald-600 bg-gray-50" : ""}`}
+                >
+                  ডিফল্ট
+                </Link>
+                <Link
+                  href={`/categories/${id}?sort=low-to-high`}
+                  className={`px-4 py-2 text-xs hover:bg-gray-50 text-gray-700 ${sort === "low-to-high" ? "font-bold text-emerald-600 bg-gray-50" : ""}`}
+                >
+                  দাম: কম থেকে বেশি
+                </Link>
+                <Link
+                  href={`/categories/${id}?sort=high-to-low`}
+                  className={`px-4 py-2 text-xs hover:bg-gray-50 text-gray-700 ${sort === "high-to-low" ? "font-bold text-emerald-600 bg-gray-50" : ""}`}
+                >
+                  দাম: বেশি থেকে কম
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Product count */}
         <p className="mb-4 text-sm text-gray-600">
-          মোট {products.length}টি পণ্য দেখানো হচ্ছে
+          মোট {sortedProducts.length}টি পণ্য দেখানো হচ্ছে
         </p>
 
         {/* Product Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
+          {sortedProducts.map((product) => (
             <div
               key={product.id}
               className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"
